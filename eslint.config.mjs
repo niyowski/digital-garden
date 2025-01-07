@@ -1,7 +1,10 @@
 import { FlatCompat } from "@eslint/eslintrc";
-import eslintConfigPrettier from "eslint-config-prettier";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
-import unusedImports from "eslint-plugin-unused-imports";
+import configPrettier from "eslint-config-prettier";
+import pluginJest from "eslint-plugin-jest";
+import pluginJestDom from "eslint-plugin-jest-dom";
+import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import pluginTestingLibrary from "eslint-plugin-testing-library";
+import pluginUnusedImports from "eslint-plugin-unused-imports";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -17,7 +20,7 @@ const eslintConfig = [
   //#region simple-import-sort
   {
     plugins: {
-      "simple-import-sort": simpleImportSort,
+      "simple-import-sort": pluginSimpleImportSort,
     },
     rules: {
       "simple-import-sort/imports": "error",
@@ -28,7 +31,7 @@ const eslintConfig = [
   //#region unused-imports
   {
     plugins: {
-      "unused-imports": unusedImports,
+      "unused-imports": pluginUnusedImports,
     },
     rules: {
       "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
@@ -45,7 +48,21 @@ const eslintConfig = [
     },
   },
   //#endregion
-  eslintConfigPrettier,
+  //#region jest
+  {
+    files: ["test/**/*.{ts,tsx}", "src/**/*.spec.{ts,tsx}"],
+    ...pluginJest.configs["flat/all"],
+    ...pluginJestDom.configs["flat/all"],
+    ...pluginTestingLibrary.configs["flat/dom"],
+    // TODO: Consider adding the following plugins once they are compatible with
+    // the latest ESLint version or the flat config:
+    // https://github.com/jest-community/eslint-plugin-jest-extended
+    // https://github.com/dangreenisrael/eslint-plugin-jest-formatting
+    // https://github.com/istanbuljs/eslint-plugin-istanbul
+    // https://github.com/funbox/eslint-plugin-no-only-tests
+  },
+  //#endregion
+  configPrettier,
 ];
 
 export default eslintConfig;
