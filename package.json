@@ -11,6 +11,10 @@
     "lint": "next lint --fix",
     "typecheck": "tsc --noEmit",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "pw": "playwright test",
+    "pw:watch": "playwright test --ui",
+    "pw:report": "playwright show-report",
     "cm": "cz"
   },
   "dependencies": {
@@ -22,6 +26,7 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.49.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",

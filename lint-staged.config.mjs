@@ -9,5 +9,8 @@ const buildEslintCommand = (filenames) =>
 export default {
   "**/*": "prettier --write --ignore-unknown --list-different",
   "**/*.{js,jsx,ts,tsx}": [buildEslintCommand],
-  "**/*.{ts,tsx}": ['bash -c "tsc --noEmit"', "jest --bail --findRelatedTests"],
+  "**/*.{ts,tsx}": [
+    'bash -c "tsc --noEmit"',
+    "jest --bail --findRelatedTests --passWithNoTests",
+  ],
 };
